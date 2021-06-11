@@ -1,0 +1,379 @@
+{% load static %}
+{%  load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cirkle | search result</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="media/favicon.png">
+    <link rel="stylesheet" href="{% static 'dependencies/bootstrap/css/bootstrap.min.css'%} ">
+    <link rel="stylesheet" href="{% static 'dependencies/icofont/icofont.min.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick-theme.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/magnific-popup/css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/sal.js/sal.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dependencies/select2/css/select2.min.css'%}" type="text/css">
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css'%}">
+    <!-- Google Web Fonts -->
+    <link href="{% static 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap'%}" rel="stylesheet">
+</head>
+<body class="bg-link-water">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="icofont-bubble-up"></i>
+    </a>
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+        <!-- Top Header -->
+         <header class="fixed-header">
+            <div class="header-menu">
+                <div class="navbar">
+                    <div class="nav-item d-none d-sm-block">
+                        <div class="header-logo">
+                            <img src="{% static 'media/logo.png'%}" alt="Cirkle">
+                        </div>
+                    </div>
+                    <div class="nav-item nav-top-menu">
+                        <nav id="dropdown" class="template-main-menu">
+                            <ul class="menu-content">
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-about' %}" class="menu-link active">About</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-home' %}" class="menu-link active">Home</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'products' %}" class="menu-link active">Products</a>
+                                       
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'services' %}" class="menu-link active">Services</a>
+                                  
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="nav-item header-control">
+                        <div class="inline-item d-none d-md-block">
+                            <div class="input-group">
+                                <form class="d-flex" method="POST" action="{% url 'search-venues' %}">
+                                {% csrf_token %}
+                                <input type="search" placeholder="Search here......." class="form-control" area-label="Search" name="searched">
+                                <div class="input-group-append">
+                                    <button type="search" class="submit-btn">
+                                        <i class="icofont-search"></i>
+                                    </button>
+                                </div>
+                             </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item nav-top-menu">
+                        <nav id="dropdown" class="template-main-menu">
+                       <ul class="menu-content">
+                    {% if user.is_authenticated %}
+
+                                <li class="header-nav-item">
+                                    <a href="{% url 'inbox' %}" class="menu-link active"><i class="icofont-speech-comments"></i> inbox {% if directs_count %} <span class="badge" style="background-color: red;">{{ directs_count }}</span>{% endif %}</a>
+                                  
+                                </li>
+                                
+                                <li class="header-nav-item">
+                                    <a href="{% url 'profile' %}" class="menu-link active">Profile</a>
+                                  
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'logout' %}" class="menu-link active">Logout</a>
+                                  
+                                </li>
+                                {% else %}
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'login' %}" class="menu-link active">Login</a>
+                                  
+                                </li>
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'register' %}" class="menu-link active">Register</a>
+                                  
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="inline-item">
+                            <div class="dropdown dropdown-admin">
+                           
+                                    <span class="media">
+                                        <span class="item-img">
+                                            <a href="{% url 'profile' %}">
+                                            <img src="{{ user.profile.image.url }}" alt="Chat" width="44" height="44" class="rounded-circle account-img">
+                                           </a>
+                                        </span>
+                                        
+                                    </span>
+                               
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </header>
+            <div class="page-content">
+            <!--=====================================-->
+            <!--=        Newsfeed  Area Start       =-->
+            <!--=====================================-->
+            <div class="container">
+
+                
+                <div class="realated-blog">
+{% if searched %}
+
+	<center><h2 style="color: #007bff;">You searched for {{ searched }} </h2></center><br>
+  <div class="block-box user-top-header">
+                    <ul class="menu-list">
+                        <li class="active"><a href="#">Choices</a></li>
+                        <li><a href="#users">Users</a></li>
+                        <li><a href="#prods">Products</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#posts">Posts</a></li>
+                        
+                    </ul>
+                </div>
+           
+
+            
+               
+                 <div class="user-grid-view" id="user-view">
+                      
+                  <div class="row gutters-20">
+                  <center><h2  id="users" ></h2></center>
+                          {% for user in users %}
+                  <div class="col-xl-3 col-lg-4 col-md-6">
+                      <div class="widget-author user-group">
+                        <div class="author-heading">
+                          <div class="cover-img"><img src="{% static 'media/figure/shape_12.jpg' %}" alt="cover"></div>
+                            <div class="profile-img">
+
+                              {% if user.profile.image %}
+            
+                                  <a href="#">
+                                  <img src="{{ user.profile.image.url }}" alt="Placeholder image" width="90" height="90"></a>
+                                 {% else %}
+                                 <a href="#">
+                                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" width="90" height="90"></a>
+                              {% endif %}
+                            </div>
+                            <div class="profile-name">
+                             <h4 class="author-name"><a href="{% url 'user-posts' user.username %}"> {{ user.username }}</a></h4>
+                             <div class="author-location"></div>
+                            </div>
+                        </div>
+                            <div class="member-thumb">
+                           <h4><a href="#">{{ user.first_name }} {{ user.last_name }}</a></h4>
+                           </div>
+
+                            <ul class="author-statistics">
+                              <li><a href=""><span class="item-text">{{ user.email }}<i class="icofont-email"></i></span></a></li>
+                              <li><a href=""><span class="item-text"><a href="{% url 'newconversation' user.username %}"  class="chat-icon" >Contact now!<i class="icofont-speech-comments"></i></a></span></a></li>
+                            </ul>
+                          
+                          
+                        </div>
+                      </div>  
+                        {% endfor %}
+                      </div>
+                      </div> 
+                      <center><h2  id="prods" ></h2></center>
+                         <div class="row" >
+
+	                        {% for prod in prods %}
+    <div class="col-lg-4 col-md-6" >
+
+    <div class="block-box product-box">
+       <div class="product-img" >
+        <a href="{% url 'productdetail' %}?id={{prod.id}}"> <img src="{{prod.principal_image.url}}" ></img></a>
+       </div>
+        <div class="product-content">
+          <div class="item-category"> {{ prod.date_posted|date:"F d, Y" }}</div>
+            <div class="item-category">{{ prod.adress }}</div>
+            <h2 class="product-title"><a href="{% url 'productdetail' %}?id={{prod.id}}">{{ prod.Title }}</a></h2>
+           <div class="product-price"><a href="#"> {{prod.prix}}</a></div>
+           </div>
+       </div>
+	</div>
+  	{% endfor %}
+  </div>
+  <center><h2  id="posts" ></h2></center>
+     <div class="row"  >
+  	{% for post in posts %}
+                  <div class="block-box post-view" id="posts">
+                    <div class="post-header">
+                      <div class="media">
+                        <div class="user-img">
+                          <img src="{{ post.author.profile.image.url }}" width="44" height="44"></div>
+                        <div class="media-body">
+                          <div class="user-title">
+                              <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                              <i class="icofont-check"></i>
+                          </div>
+                          <ul class="entry-meta">
+                                <li class="meta-time"> <i class="icofont-world">Public</i>{{ post.date_posted|date:"F d, Y" }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="post-body">
+                        <p><a class="product-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></p>
+                        <div class="post-img">
+                        {{ post.content }}</div>
+                        <div class="post-meta-wrap">
+                                    <div class="post-meta">
+                                        <div class="post-reaction">
+                                            <div class="reaction-icon">
+                                                <img src="{% static 'media/figure/reaction_1.png'%}" alt="icon">
+                                            </div>
+                                            <div class="meta-text">{{ post.number_of_likes }} Like{{ post.number_of_likes|pluralize }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="post-meta">
+                                        <div class="meta-text">{{ post.number_of_comments }} Comment{{ post.number_of_comments|pluralize }}</div>
+                                    </div>
+                                </div>
+                      </div>
+                      <div class="post-footer">
+                        <ul>
+                          <li class="post-react">
+                            <a href="{% url 'post-detail' post.id %}"><i class="icofont-thumbs-up">Like</i></a>
+                          </li>
+                          <li>
+                            <a href="{% url 'post-detail' post.id %}">
+                              <i class="icofont-comment">Comment</i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                  </div>
+                {% endfor %}
+              </div>
+            <center><h2  id="services" ></h2></center>
+                   <div class="row" >
+                   
+	                        {% for service in services %}
+                        <div class="col-lg-4" id="services">
+                            <div class="block-box user-blog" >
+                                <div class="blog-img">
+                                    <a href="{% url 'servicedetail' %}?id={{service.id}}"><img src="{{ service.image_service.url }}" width="250" height="376" alt="Blog"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="blog-category">
+                                    </div>
+                                    <h3 class="blog-title"><a href="{% url 'servicedetail' %}?id={{service.id}}">{{ service.name_business }}</a></h3>
+                                    <div class="blog-date"><i class="icofont-calendar"></i> {{ service.date_posted|date:"F d, Y" }}</div>
+                                    <div>{{ service.sector }}</div>
+                                    <div>{{ service.disponibilite }}</div>
+                                    <span class="item-text"><a href="{% url 'newconversation' service.userr.username %}"  class="chat-icon" >Contact now!<i class="icofont-speech-comments"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                       </div>
+	{% else %}
+
+    <center><h2 >you forgot to search </h2></center><br>
+{% endif %}
+</div>
+</div>
+</div>
+<br><br>
+ <footer class="footer-wrap">
+            
+            <div class="main-footer">
+                <div class="container">
+                    <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1">
+                        <div class="col">
+                            <div class="footer-box">
+                                <div class="footer-logo">
+                                    <a href="{% url 'blog-home' %}"><img src="{% static 'media/logo_dark.png'%}" alt="Logo"></a>
+                                </div>
+                                <p>Dorem ipsum dolor sit amet consec adipisicing elit sed do eiusmod por incidiut labore et loreLorem ipsum kelly amieo dolorey.</p>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Important Links
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="{% url 'blog-home' %}">Home</a></li>
+                                        <li><a href="{% url 'blog-about' %}">About us</a></li>
+                                        <li><a href="{% url 'products' %}">Products</a></li>
+                                        <li><a href="{% url 'services' %}">Services</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Community
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="{% url 'blog-home' %}">NewsFeed</a></li>
+                                        <li><a href="{% url 'profile' %}">Profile</a></li>
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Social Media 
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="https://www.facebook.com/">facebook</a></li>
+                                        <li><a href="https://twitter.com/">twitter</a></li>
+                                        <li><a href="https://www.instagram.com/">instagram</a></li>
+                                        <li><a href="https://www.youtube.com/">Youtube</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">Copy© cirkle 2021. All Rights Reserved</div>
+            </div>
+        </footer>
+         <!-- Jquery Js -->
+    <script src="{% static 'dependencies/jquery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dependencies/popper.js/js/popper.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dependencies/imagesloaded/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/isotope-layout/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/slick-carousel/js/slick.min.js' %}"></script>
+    <script src="{% static 'dependencies/sal.js/sal.js' %}"></script>
+    <script src="{% static 'dependencies/magnific-popup/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap-validator/js/validator.min.js' %}"></script>
+    <script src="{% static 'dependencies/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4' %}"></script>
+    <!-- Site Scripts -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+</body>
+</html>
+{% endblock content %}

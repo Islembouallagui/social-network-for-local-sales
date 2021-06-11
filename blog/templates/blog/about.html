@@ -1,0 +1,541 @@
+{% load static %}
+{%  load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cirkle | About</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="media/favicon.png">
+    <link rel="stylesheet" href="{% static 'dependencies/bootstrap/css/bootstrap.min.css'%} ">
+    <link rel="stylesheet" href="{% static 'dependencies/icofont/icofont.min.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick-theme.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/magnific-popup/css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/sal.js/sal.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dependencies/select2/css/select2.min.css'%}" type="text/css">
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css'%}">
+    <!-- Google Web Fonts -->
+    <link href="{% static 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap'%}" rel="stylesheet">
+</head>
+<body class="bg-link-water">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="icofont-bubble-up"></i>
+    </a>
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+        <!-- Top Header -->
+         <header class="header">
+            <div id="rt-sticky-placeholder"></div>
+            <div id="header-menu" class="header-menu menu-layout1">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2">
+                            <div class="temp-logo">
+                              <img src="{% static 'media/logo.png'%}" alt="Logo">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7 col-sm-7 col-8 d-flex justify-content-xl-start justify-content-center">
+                            <div class="mobile-nav-item hide-on-desktop-menu">
+                                <div class="mobile-toggler">
+                                    <button type="button" class="mobile-menu-toggle">
+                                        <i class="icofont-navigation-menu"></i>
+                                    </button>
+                                </div>
+                                <div class="mobile-logo">
+                                    <a href="index.html">
+                                        <img src="{% static 'media/mobile_logo.png'%}" alt="Logo">
+                                    </a>
+                                </div>
+                            </div>
+                            <nav id="dropdown" class="template-main-menu">
+                                <button type="button" class="mobile-menu-toggle mobile-toggle-close">
+                                    <i class="icofont-close"></i>
+                                </button>
+                                <ul class="menu-content">
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-about' %}" class="menu-link active">About</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-home' %}" class="menu-link active">Home</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'products' %}" class="menu-link active">Products</a>
+
+                                       
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'services' %}" class="menu-link active">Services</a>
+                                  
+                                </li>
+                                {% if user.is_authenticated %}
+                                <li class="header-nav-item">
+                                    <a href="{% url 'inbox' %}" class="menu-link active"><i class="icofont-speech-comments"></i> Inbox {% if directs_count %} <span class="badge" style="background-color: red;">{{ directs_count }}</span>{% endif %}</a>
+                                  
+                                </li>
+                                
+                                <li class="header-nav-item">
+                                    <a href="{% url 'profile' %}" class="menu-link active">Profile</a>
+                                  
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'logout' %}" class="menu-link active">Logout</a>
+                                  
+                                </li>
+                                {% else %}
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'login' %}" class="menu-link active">Login</a>
+                                  
+                                </li>
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'register' %}" class="menu-link active">Register</a>
+                                  
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        </div>
+                        <!--<div class="col-xl-4 col-lg-3 col-sm-5 col-4 d-flex justify-content-end">
+                            
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
+        </header>
+        <!--=====================================-->
+        <!--=          Banner Start       		=-->
+        <!--=====================================-->
+        <section class="breadcrumbs-banner">
+            <div class="container">
+                <div class="breadcrumbs-area" style="text-align: center">
+                      <img src="{% static 'media/banner/shape_1.png'%}"  alt="shape">
+                    <h1 >Welcome in Cirkle Community!</h1>
+
+                    <ul>
+                        <li>
+                            <a href="{% url 'blog-home' %}">Home</a>
+                        </li>
+                        <li>About Us</li>
+                    </ul>
+                </div>
+            </div>
+
+           
+        </section>
+
+        <!--=====================================-->
+        <!--=         About Us Start       		=-->
+        <!--=====================================-->
+        <section class="about-us">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-6">
+                        <div class="about-us-content">
+                            <div class="item-subtitle">Who We Are</div>
+                            <h2 class="item-title">We Improve Your Experience Day by Day</h2>
+                            <p>Our objective is to facilitate the communication between consumers and local producers in order to sell and buy products online.</p>
+                            <p>Social Selling is a digital marketing business strategy that involves using social networks to sell a product.</p>
+                            <p>We aim to encourage local stores and businesses  by  improving  their visibility through this plateform and helping them gain more customers .</p> 
+                            <p>Each one of you can deposit its products as well, it saves time to sell its products and offers a better visibility on this platform.</p>
+                           
+                            <div class="progress-box">
+                                <div class="media">
+                                    <div class="item-icon">
+                                        <i class="icofont-users-social"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="item-title">1500K+</div>
+                                        <div class="item-subtitle">Registered Members</div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item-icon">
+                                        <i class="icofont-numbered"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="item-title">121+</div>
+                                        <div class="item-subtitle">Features Available</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-us-img">
+                            <div class="item-img" data-sal="slide-left" data-sal-duration="800">
+                                <img src="{% static 'media/figure/so.jpg'%}" width="430" height="535" alt="about">
+                            </div>
+                            <div class="item-video" data-sal="slide-up" data-sal-duration="800" data-sal-delay="200">
+                                <img src="{% static 'media/figure/stock2.jpg'%}" width="290" height="330" alt="about">
+                                <div class="video-icon">
+                                    <a class="play-btn popup-youtube" href="https://www.youtube.com/watch?v=kIcoHiX8Z2I">
+                                        <i class="icofont-ui-play"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=         Community Start       	=-->
+        <!--=====================================-->
+        <section class="community-network">
+            <ul class="map-marker">
+                <li><img src="{% static 'media/banner/marker_1.png'%}" alt="marker"></li>
+                <li><img src="{% static 'media/banner/marker_2.png'%}" alt="marker"></li>
+                <li><img src="{% static 'media/banner/marker_3.png'%}" alt="marker"></li>
+                <li><img src="{% static 'media/banner/marker_4.png'%}" alt="marker"></li>
+                <li><img src="{% static 'media/banner/marker_5.png'%}" alt="marker"></li>
+            </ul>
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-lg-6">
+                        <div class="community-content">
+                            <h2 class="item-title">129 Countries We Build Our Largest Community in <span>Cirkle Network</span></h2>
+                            <p>Are you limited by time and looking for a service close to your location ? you want to shop through internet but you still want to see your product before paying ? Discover Now the  products in your  closest shops  and find the nearest services to your location!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-shape" data-sal="slide-left" data-sal-duration="500" data-sal-delay="500">
+                <img src="{% static 'media/figure/shape_7.png'%}" alt="bg">
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=         Team Area  Start       	=-->
+        <!--=====================================-->
+        <section class="section team-circle">
+            <div class="container position-relative">
+                <div class="section-heading">
+                    <h2 class="item-title">We ship over 45 million products around the world</h2>
+                    <p>Aliquam lorem ante dapibus in viverra quis feugiat atellu Peaselus vierra nullaut metus varius laoreet unknown printer took scrambled make.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-11">
+                        <div class="row no-gutters">
+                            <div class="col-lg-4 col-sm-6">
+                                <ul class="nav nav-tabs nav-tabs-left" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#team1" role="tab" aria-selected="true">
+                                            <img src="{% static 'media/team/makeup.jpg'%}" width="300"  height="300"alt="team">
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#team2" role="tab" aria-selected="false">
+                                            <img src="{% static 'media/team/food.jpg'%}" width="300"  height="300" alt="team">
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#team3" role="tab" aria-selected="false">
+                                            <img src="{% static 'media/team/biblio.jpg'%}" width="300"  height="300" alt="team">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 order-lg-3">
+                                <ul class="nav nav-tabs nav-tabs-right" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#team4" role="tab" aria-selected="false">
+                                            <img src="{% static 'media/team/phone.jpg'%}" width="300"  height="300" alt="team">
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#team5" role="tab" aria-selected="false">
+                                            <img src="{% static 'media/team/cleaning.jpg'%}" width="300"  height="300" alt="team">
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#team6" role="tab" aria-selected="false">
+                                            <img src="{% static 'media/team/table.jpg'%}" width="300"  height="300" alt="team">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 order-lg-2">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="team1" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/makeup.jpg'%}" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="team2" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/food.jpg'%}" width="300"  height="300" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="team3" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/biblio.jpg'%}" width="300"  height="300" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="team4" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/phone.jpg'%}" width="300" height="300" width="300"  height="300" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="team5" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/cleaning.jpg'%}" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="team6" role="tabpanel">
+                                        <div class="team-box">
+                                            <div class="item-img">
+                                                <img src="{% static 'media/team/table.jpg'%}" width="300" height="300" alt="team">
+                                            </div>
+                                            <div class="item-content">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="shape-wrap">
+                            <li><img src="{% static 'media/figure/shape_9.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_1.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_2.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_circle_1.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_circle_2.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_circle_3.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_3.png'%}" alt="shape"></li>
+                            <li><img src="{% static 'media/team/shape_4.png'%}" alt="shape"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="see-all-btn">
+                    <a href="{% url 'products' %}" class="button-slide">
+                        <span class="btn-text">Discover All Products</span>
+                        <span class="btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
+                                <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=         Why Choose  Start       	=-->
+        <!--=====================================-->
+        <section class="why-choose-fluid">
+            <div class="container-fluid full-width">
+                <div class="row no-gutters">
+                    <div class="col-lg-6">
+                        <div class="why-choose-content">
+                            <div class="content-box">
+                                <h2 class="item-title">Cirkle Makes Your Life Easier &amp; Simple</h2>
+                                <p>Aliquam lorem ante dapibus in viverra quis feugiat atellu Peaselus vierra nullaut metus varius laoreet unknown printer took scrambled make.</p>
+                                <a href="{% url 'register' %}" class="button-slide">
+                                    <span class="btn-text">Register Now!</span>
+                                    <span class="btn-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
+                                            <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="why-choose-img">
+                            <div class="image-box">
+                                <img src="{% static 'media/figure/socialE.jpg'%}" width="700" height="1000" alt="image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=          NewsLetter Start       		=-->
+        <!--=====================================-->
+        <section class="banner-newsletter">
+            <ul class="section-cloud">
+                <li><img src="{% static 'media/figure/cloud_1.png'%}" alt="shape"></li>
+                <li><img src="{% static 'media/figure/cloud_2.png'%}" alt="shape"></li>
+                <li><img src="{% static 'media/figure/cloud_2.png'%}" alt="shape"></li>
+                <li><img src="{% static 'media/figure/cloud_1.png'%}" alt="shape"></li>
+            </ul>
+            <div class="container">
+                <ul class="section-shape">
+                    <li><img src="{% static 'media/figure/shape_1.png'%}" alt="shape"></li>
+                    <li><img src="{% static 'media/figure/shape_2.png'%}" alt="shape"></li>
+                    <li><img src="{% static 'media/figure/shape_3.png'%}" alt="shape"></li>
+                    <li><img src="{% static 'media/figure/shape_4.png'%}" alt="shape"></li>
+                    <li><img src="{% static 'media/figure/shape_5.png'%}" alt="shape"></li>
+                </ul>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="newsletter-box">
+                            <h2 class="item-title">Discover the nearest services to your location!</h2>
+                            <p>Dorem ipsum dolor sit amet consec adipisicing elit sed do eiusmod por incidiut labore et loreLorem ipsum kelly amieo dolorey</p>
+                            <div class="">
+                                 <div class="see-all-btn">
+                    <a href="{% url 'services' %}" class="button-slide">
+                        <span class="btn-text">Discover All Services</span>
+                        <span class="btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
+                                <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=        Footer Area Start       	=-->
+        <!--=====================================-->
+        <footer class="footer-wrap">
+            <ul class="footer-top-image">
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="400"><img src="{% static 'media/figure/plombier.jpg'%}" width="97" height="116" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="500"><img src="{% static 'media/figure/data analyst.jpg'%}" width="98" height="116" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"><img src="{% static 'media/figure/jardinier.jpg'%}" width="91" height="117" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="600"><img src="{% static 'media/figure/menuisier.jpg'%}" width="108" height="127" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="200"><img src="{% static 'media/figure/docteur.jpg'%}" width="107" height="124" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="700"><img src="{% static 'media/figure/photographer.jpg'%}" width="109" height="129" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="100"><img src="{% static 'media/figure/traducteur.jpg'%}" width="99" height="120" alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500" data-sal-delay="800"><img src="{% static 'media/figure/boucher.jpg'%}" width="101" height="135"  alt="Man"></li>
+                <li data-sal="slide-up" data-sal-duration="500"><img src="{% static 'media/figure/architect.jpg'%}" alt="Man" width="93" height="121" ></li>
+            </ul>
+            <div class="main-footer">
+                <div class="container">
+                    <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1">
+                        <div class="col">
+                            <div class="footer-box">
+                                <div class="footer-logo">
+                                    <a href="{% url 'blog-home' %}"><img src="{% static 'media/logo_dark.png'%}" alt="Logo"></a>
+                                </div>
+                                <p>Dorem ipsum dolor sit amet consec adipisicing elit sed do eiusmod por incidiut labore et loreLorem ipsum kelly amieo dolorey.</p>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Important Links
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="{% url 'blog-home' %}">Home</a></li>
+                                        <li><a href="{% url 'blog-about' %}">About us</a></li>
+                                        <li><a href="{% url 'products' %}">Products</a></li>
+                                        <li><a href="{% url 'services' %}">Services</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Community
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="{% url 'blog-home' %}">NewsFeed</a></li>
+                                        <li><a href="{% url 'profile' %}">Profile</a></li>
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-lg-center">
+                            <div class="footer-box">
+                                <h3 class="footer-title">
+                                    Social Media 
+                                </h3>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="https://www.facebook.com/">facebook</a></li>
+                                        <li><a href="https://twitter.com/">twitter</a></li>
+                                        <li><a href="https://www.instagram.com/">instagram</a></li>
+                                        <li><a href="https://www.youtube.com/">Youtube</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">Copy© cirkle 2021. All Rights Reserved</div>
+            </div>
+        </footer>
+
+
+
+        <!--=====================================-->
+        <!--=      Header Search Start          =-->
+        <!--=====================================-->
+        <div id="header-search" class="header-search">
+            <button type="button" class="close">×</button>
+            <form class="header-search-form">
+                <input type="search" value="" placeholder="Search here..." />
+                <button type="submit" class="search-btn">
+                    <i class="flaticon-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Jquery Js -->
+    <script src="{% static 'dependencies/jquery/js/jquery.min.js'%}"></script>
+    <script src="{% static 'dependencies/popper.js/js/popper.min.js'%}"></script>
+    <script src="{% static 'dependencies/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'dependencies/imagesloaded/js/imagesloaded.pkgd.min.js'%}"></script>
+    <script src="{% static 'dependencies/isotope-layout/js/isotope.pkgd.min.js'%}"></script>
+    <script src="{% static 'dependencies/slick-carousel/js/slick.min.js'%}"></script>
+    <script src="{% static 'dependencies/sal.js/sal.js'%}"></script>
+    <script src="{% static 'dependencies/magnific-popup/js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'dependencies/bootstrap-validator/js/validator.min.js'%}"></script>
+    <script src="{% static 'dependencies/select2/js/select2.min.js'%}"></script>
+    <script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4'%}"></script>
+
+    <!-- Site Scripts -->
+    <script src="{% static 'assets/js/app.js'%}"></script>
+</body>
+
+</html>
+
+{% endblock content %}

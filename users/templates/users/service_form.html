@@ -1,0 +1,167 @@
+{% load static %}
+{%  load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cirkle | service_form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="media/favicon.png">
+    <link rel="stylesheet" href="{% static 'dependencies/bootstrap/css/bootstrap.min.css'%} ">
+    <link rel="stylesheet" href="{% static 'dependencies/icofont/icofont.min.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick-theme.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/magnific-popup/css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/sal.js/sal.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dependencies/select2/css/select2.min.css'%}" type="text/css">
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css'%}">
+    <!-- Google Web Fonts -->
+    <link href="{% static 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap'%}" rel="stylesheet">
+</head>
+<body class="bg-link-water">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="icofont-bubble-up"></i>
+    </a>
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+        <!-- Top Header -->
+         <header class="fixed-header">
+            <div class="header-menu">
+                <div class="navbar">
+                    <div class="nav-item d-none d-sm-block">
+                        <div class="header-logo">
+                            <img src="{% static 'media/logo.png'%}" alt="Cirkle">
+                        </div>
+                    </div>
+                    <div class="nav-item nav-top-menu">
+                        <nav id="dropdown" class="template-main-menu">
+                            <ul class="menu-content">
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-about' %}" class="menu-link active">About</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'blog-home' %}" class="menu-link active">Home</a>
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'products' %}" class="menu-link active">Products</a>
+                                       
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'services' %}" class="menu-link active">Services</a>
+                                  
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="nav-item header-control">
+                        <div class="inline-item d-none d-md-block">
+                            <div class="input-group">
+                                <form class="d-flex" method="POST" action="{% url 'search-venues' %}">
+                                {% csrf_token %}
+                                <input type="search" placeholder="Search here......." class="form-control" area-label="Search" name="searched">
+                                <div class="input-group-append">
+                                    <button type="search" class="submit-btn">
+                                        <i class="icofont-search"></i>
+                                    </button>
+                                </div>
+                             </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item nav-top-menu">
+                        <nav id="dropdown" class="template-main-menu">
+                       <ul class="menu-content">
+                    {% if user.is_authenticated %}
+
+                                <li class="header-nav-item">
+                                    <a href="{% url 'inbox' %}" class="menu-link active"><i class="icofont-speech-comments"></i> inbox {% if directs_count %} <span class="badge" style="background-color: red;">{{ directs_count }}</span>{% endif %}</a>
+                                  
+                                </li>
+                                
+                                <li class="header-nav-item">
+                                    <a href="{% url 'profile' %}" class="menu-link active">Profile</a>
+                                  
+                                </li>
+                                <li class="header-nav-item">
+                                    <a href="{% url 'logout' %}" class="menu-link active">Logout</a>
+                                  
+                                </li>
+                                {% else %}
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'login' %}" class="menu-link active">Login</a>
+                                  
+                                </li>
+                                 <li class="header-nav-item">
+                                    <a href="{% url 'register' %}" class="menu-link active">Register</a>
+                                  
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="inline-item">
+                            <div class="dropdown dropdown-admin">
+                           
+                                    <span class="media">
+                                        <span class="item-img">
+                                            <a href="{% url 'profile' %}">
+                                            <img src="{{ user.profile.image.url }}" alt="Chat" width="44" height="44" class="rounded-circle account-img">
+                                           </a>
+                                        </span>
+                                        
+                                    </span>
+                               
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </header>
+        <br>  <br>   <br>   <br>   <br>
+    <div class="container">
+        <div class="block-box user-single-blog">
+         <div class="blog-content-wrap">
+       
+          <div class="blog-content">
+          <form method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">your Service</legend>
+                  {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                  <button class="btn btn-outline-info" type="submit">update</button>
+              </div>
+             </form>
+                </div>
+<!-- Jquery Js -->
+    <script src="{% static 'dependencies/jquery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dependencies/popper.js/js/popper.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dependencies/imagesloaded/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/isotope-layout/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/slick-carousel/js/slick.min.js' %}"></script>
+    <script src="{% static 'dependencies/sal.js/sal.js' %}"></script>
+    <script src="{% static 'dependencies/magnific-popup/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap-validator/js/validator.min.js' %}"></script>
+    <script src="{% static 'dependencies/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4' %}"></script>
+
+    <!-- Site Scripts -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+</body>
+
+</html>
+{% endblock content %}

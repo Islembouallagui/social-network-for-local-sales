@@ -1,0 +1,244 @@
+{% load static %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="">
+
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cirkle | Search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="media/favicon.png">
+    <link rel="stylesheet" href="{% static 'dependencies/bootstrap/css/bootstrap.min.css'%} ">
+    <link rel="stylesheet" href="{% static 'dependencies/icofont/icofont.min.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/slick-carousel/css/slick-theme.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/magnific-popup/css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'dependencies/sal.js/sal.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dependencies/select2/css/select2.min.css'%}" type="text/css">
+
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css'%}">
+
+    <!-- Google Web Fonts -->
+    <link href="{% static 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap'%}" rel="stylesheet">
+
+</head>
+
+<body class="sticky-header">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="icofont-bubble-up"></i>
+    </a>
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper overflow-hidden">
+
+        <!--=====================================-->
+        <!--=          Header Menu Start        =-->
+        <!--=====================================-->
+        <header class="header">
+            <div id="rt-sticky-placeholder"></div>
+            <div id="header-menu" class="header-menu menu-layout1">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2">
+                            <div class="temp-logo">
+                                <img src="{% static 'media/logo.png'%}" alt="Logo">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7 col-sm-7 col-8 d-flex justify-content-xl-start justify-content-center">
+                            <div class="mobile-nav-item hide-on-desktop-menu">
+                                <div class="mobile-toggler">
+                                    <button type="button" class="mobile-menu-toggle">
+                                        <i class="icofont-navigation-menu"></i>
+                                    </button>
+                                </div>
+                                <div class="mobile-logo">
+                                    <a href="index.html">
+                                        <img src="{% static 'media/mobile_logo.png'%}" alt="Logo">
+                                    </a>
+                                </div>
+                            </div>
+                            <nav id="dropdown" class="template-main-menu">
+                                <button type="button" class="mobile-menu-toggle mobile-toggle-close">
+                                    <i class="icofont-close"></i>
+                                </button>
+                                <ul class="menu-content">
+                                  <li class="header-nav-item">
+                                    <a href="{% url 'blog-about' %}" class="menu-link active">About</a>
+                                </li>
+                                    <li class="header-nav-item">
+                                       <a class="menu-link active" href="{% url 'blog-home' %}">Home</a>
+                                    </li>
+                                     <li class="header-nav-item">
+                                        <a class="menu-link active" href="{% url 'products' %}">products</a>
+                                    </li>
+                                    <li class="header-nav-item">
+                                        <a class="menu-link active" href="{% url 'services' %}">services</a>
+                                    </li>
+                                      <!-- Navbar Right Side -->
+                        {% if user.is_authenticated %}
+                         <li class="header-nav-item">
+                        <a class="menu-link active" href="{% url 'inbox' %}"><i class="icofont-speech-comments"></i>Inbox{% if directs_count %} <span class="badge" style="background-color: red;">{{ directs_count }}</span>{% endif %}</a>
+                        </li>
+                         
+                         <li class="header-nav-item">
+                        <a class="menu-link active" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                         <li class="header-nav-item">
+                        <a class="menu-link active" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                         <li class="header-nav-item">
+                           <a class="menu-link active" href="{% url 'login' %}">Login</a>
+                        </li>
+                         <li class="header-nav-item">
+                           <a class="menu-link active" href="{% url 'register' %}">Register</a></div>
+                        </li>
+                        {% endif %}
+                                       
+                        </ul>
+                        </nav>
+                        </div>
+                        <!--<div class="col-xl-4 col-lg-3 col-sm-5 col-4 d-flex justify-content-end">
+                            
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
+        </header>
+        <!--=====================================-->
+        <!--=          Banner Start             =-->
+        <!--=====================================-->
+        <section class="hero-banner">
+            <div class="container">
+              <div class="hero-content" data-sal="zoom-out" data-sal-duration="1000">
+                 <form>
+                  <div class=" user-search-bar col-lg-4 " >
+                         <div class="widget widget-memebers">
+                           <!--<div class="inline-item d-none d-md-block">-->
+                           
+                            <div class="input-group">
+                            <input class="form-control" name="q" type="text" placeholder="Search user..." value="{{ request.GET.q }}">
+                            <div class="input-group-append">
+                                      <button class="search-btn" type="submit"><i class="icofont-search"></i>Search</button>
+                                  </div>
+      
+                            </div>
+                         
+                 <!--  </div>-->
+                 </div>
+               </div>
+                </form>
+
+                <div class="user-grid-view" id="user-view">
+                      
+                  <div class="row gutters-20">
+
+                  {% for user in users %}
+                  <div class="col-xl-3 col-lg-4 col-md-6">
+                      <div class="widget-author user-group">
+                        <div class="author-heading">
+                          <div class="cover-img"><img src="{% static 'media/figure/shape_12.jpg' %}" alt="cover"></div>
+                            <div class="profile-img">
+
+                              {% if user.profile.image %}
+            
+                                  <a href="#">
+                                  <img src="{{ user.profile.image.url }}" alt="Placeholder image" width="90" height="90"></a>
+                                 {% else %}
+                                 <a href="#">
+                                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" width="90" height="90"></a>
+                              {% endif %}
+                            </div>
+                            <div class="profile-name">
+                             <h4 class="author-name"><a href="{% url 'user-posts' user.username %}"> {{ user.username }}</a></h4>
+                             <div class="author-location"></div>
+                            </div>
+                        </div>
+                            <div class="member-thumb">
+                           <h4><a href="#">{{ user.first_name }} {{ user.last_name }}</a></h4>
+                           </div>
+
+                            <ul class="author-statistics">
+                              <li><a href=""><span class="item-text">{{ user.email }}<i class="icofont-email"></i></span></a></li>
+                              <li><a href=""><span class="item-text"><a href="{% url 'newconversation' user.username %}"  class="chat-icon" >Contact now!<i class="icofont-speech-comments"></i></a></span></a></li>
+                            </ul>
+                          
+                          
+                        </div>
+                      </div>  
+                        {% endfor %}
+      
+                </div>
+              </div>
+
+                    <h1 class="item-title">Cirkle Community</h1>
+                    <p>Having real social contacts can sometimes be difficult FUN, everything becomes much simpler!</p>
+                    <div class="item-number">10,95,219</div>
+                    <div class="conn-people">Connected People</div>
+                    <a href="{% url 'blog-home' %}" class="button-slide">
+                       
+                        <span class="btn-text">Discover Now</span>
+                        <span class="btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
+                                <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+           <div class="leftside-image">
+
+               <!-- <div class="cartoon-image" data-sal="slide-down" data-sal-duration="1000" data-sal-delay="100">
+                    <img src="{% static 'media/banner/people_1.png'%}" alt="People">
+                </div>-->
+                <div class="shape-image" data-sal="slide-down" data-sal-duration="500" data-sal-delay="700">
+                    <img src="{% static 'media/banner/shape_1.png'%}" alt="shape">
+                </div>
+                
+            </div>
+            <div class="map-line">
+                <img src="{% static 'media/banner/map_line.png'%}" alt="map" data-sal="slide-up" data-sal-duration="500" data-sal-delay="800">
+                <ul class="map-marker">
+                    <li data-sal="slide-up" data-sal-duration="700" data-sal-delay="1000"><img src="{% static 'media/banner/marker_1.png'%}" alt="marker"></li>
+                    <li data-sal="slide-up" data-sal-duration="800" data-sal-delay="1000"><img src="{% static 'media/banner/marker_2.png'%}" alt="marker"></li>
+                    <li data-sal="slide-up" data-sal-duration="900" data-sal-delay="1000"><img src="{% static 'media/banner/marker_3.png'%}" alt="marker"></li>
+                    <li data-sal="slide-up'%}" data-sal-duration="1000" data-sal-delay="1000"><img src="{% static 'media/banner/marker_4.png'%}" alt="marker"></li>
+                </ul>
+            </div>
+        
+ 
+        </section>
+
+
+
+ <!-- Jquery Js -->
+    <script src="{% static 'dependencies/jquery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dependencies/popper.js/js/popper.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dependencies/imagesloaded/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/isotope-layout/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'dependencies/slick-carousel/js/slick.min.js' %}"></script>
+    <script src="{% static 'dependencies/sal.js/sal.js' %}"></script>
+    <script src="{% static 'dependencies/magnific-popup/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'dependencies/bootstrap-validator/js/validator.min.js' %}"></script>
+    <script src="{% static 'dependencies/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4' %}"></script>
+
+    <!-- Site Scripts -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+</body>
+
+</html>
+{% endblock content %}

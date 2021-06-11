@@ -1,0 +1,35 @@
+
+
+
+ {% if comments %}
+                                      <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+                                       {% for comment in comments %}
+<div class="blog-content-wrap">
+                        <div class="block-box post-view">
+                            <div class="post-header">
+                                <div class="media">
+                                    <div class="user-img">
+                                        <img src="{{ comment.author.profile.image.url }}" alt="Aahat" width="44" height="44">
+                                    </div>
+                                    <div class="media-body">
+                                         <ul class="entry-meta" >
+                                            <li class="user-title"><a>{{ comment.author }}</a></li>
+                                            <li class="meta-time" style="">{{ comment.date_posted }}</li>
+                                        </ul>
+                                        <div class="user-title"><a href="#">
+                                              {{ comment.content|safe }}</a></div>
+                                    </div>
+                                </div>
+                                  {% if comment.author == user %}
+                                <div class="dropdown">
+                                      
+                                          <a class="btn btn-secondary btn-sm mt-1 mb-1"  href="{% url 'delete-comment' comment.id %}">Delete</a>
+                                          
+                                </div>
+                                {% endif %}
+                            </div>
+                       </div></div>
+                         {% endfor %}
+                              {% else %}
+                                        <strong class="text-secondary">No comments yet...</strong>
+                                    {% endif %}
